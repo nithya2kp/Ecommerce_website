@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>EShopper - Bootstrap Shop Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico'%}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{%static 'css/owl.carousel.min.css'%}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{%static 'css/style.css'%}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="row my-3">
+        <div class="col-sm-6 offset-sm-3">
+            <div class="row d-flex justify-content-around">
+                <h2 class="mt-5">Sign Up</h2>
+                <img class="img-fluid" style="width:200px" src="{%static 'img/logo2.png'%}" alt="">
+            </div>
+            <hr>
+            <form action="" method="post" novalidate class="shadow p-5">
+                {% csrf_token %}
+                {% for fm in form %}
+                {{fm.label_tag}} {{fm}}<small class="text-danger">{{fm.errors|striptags}}</small>
+                <br>
+                {% endfor %}
+                <input type="submit" value="submit" class="btn btn-primary"><br>
+                <div class="text-center text-primary fw-bold">
+                    <small class="mr-2">Existing User?</small><a href="{% url 'login'%}" class="text-danger">Login Now</a>
+                </div>
+                {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                <p class="alert alert-danger my-3">{{error}}</p>
+                {% endfor %}
+                {% endif %}
+                {% if messages %}
+                {% for msg in messages %}
+                <div class="alert alert-{{msg.tags}}" role="alert">
+                    {{msg}}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
